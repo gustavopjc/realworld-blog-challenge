@@ -1,5 +1,12 @@
 <template>
   <v-app>
+    <!-- <v-overlay :value="$isLoading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+      ></v-progress-circular>
+    </v-overlay> -->
     <v-main>
       <Header/>
       <v-content>
@@ -16,6 +23,7 @@ import Header from '@/components/Layout/Header.vue';
 import FooterComponent from '@/components/Layout/Footer.vue';
 
 export default defineComponent({
+  name: 'app',
   components: {
     Header,
     FooterComponent,

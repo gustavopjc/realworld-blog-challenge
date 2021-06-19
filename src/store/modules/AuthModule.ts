@@ -7,9 +7,10 @@ import {
 import { User, Credentials } from '@/models';
 import BaseService from '@/services/BaseService';
 import router from '@/router';
+import { AuthState } from '@/models/types/AuthStateTypes';
 
 @Module
-export default class Auth extends VuexModule {
+export default class AuthModule extends VuexModule {
   currentUser = {};
 
   @Mutation
@@ -37,11 +38,21 @@ export default class Auth extends VuexModule {
       new BaseService('users').post('login', { user: credentials })
         .then((response) => {
           this.context.commit('updateCurrentUser', response.user);
-          router.push({ name: 'login' });
+          router.push({ name: 'home-global' });
         })
-        .catch(({ response }) => {
-          console.log(response);
-        });
+        .catch(() => Promise.resolve);
     });
+  }
+
+  get isAuth() {
+    return Object.keys(this.currentUser).length !== 0;
+  }
+
+  get getCurrentUser() {
+    return this.currentUser as User;
+  }
+
+  get getCurrentaAuthState() {
+    return this.isAuth ? 'authenticated' : 'unauthenticated';
   }
 }

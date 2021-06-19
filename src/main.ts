@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import './plugins';
 import vuetify from './plugins/vuetify';
-import 'vue-toast-notification/dist/theme-sugar.css';
 
 Vue.use(VueToast);
 Vue.use(VueCompositionAPI);

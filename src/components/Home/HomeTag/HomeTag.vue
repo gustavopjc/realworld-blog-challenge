@@ -25,16 +25,15 @@ export default defineComponent({
     },
   },
   methods: {
-    fetchGlobalArticles() {
+    fetchArticlesList() {
       this.$store.dispatch('fetchArticleList');
     },
     setArticleCurrentTypeService() {
       this.$store.dispatch('setCurrentArticleService', new GlobalArticlesService());
-      this.$store.dispatch('clearCurrentTag');
     },
   },
   mounted() {
-    this.fetchGlobalArticles();
+    this.fetchArticlesList();
   },
   created() {
     this.setArticleCurrentTypeService();

@@ -1,41 +1,29 @@
-/* eslint-disable */
+import Vue from 'vue';
+
 import {
   AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse,
 } from 'axios';
-import Vue from 'vue';
-import store from '@/store';
+import { setAutencationToken } from './onRequestInterceptors';
+import { validationErrors } from './onResponseErrorInterceptor';
+import { getAutencationToken } from './onResponseInterceptor';
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  const token = store.state.Auth.currentUser.token;
-  if (token) {
-    config.headers['Authorization'] = 'Token ' + token;
-  }
+  setAutencationToken(config);
   return config;
 };
 
-const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  return Promise.reject(error);
-};
-
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  if (response.headers.authorization) {
-    const token = response.headers.authorization;
-    window.localStorage.setItem('Token', token);
-  }
+  getAutencationToken(response);
   return response;
 };
 
-const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  if(error.response?.data.errors) {
-    Object.entries(error.response?.data.errors).forEach(([key, value]) => {
-      Vue.$toast.error(key + '' +  value);
-    })
-  }
-  return Promise.reject(error);
+const onResponseError = (error: AxiosError): AxiosError => {
+  validationErrors(error);
+  return error;
 };
 
 export function setupInterceptorsTo(axiosInstance: AxiosInstance): AxiosInstance {
-  axiosInstance.interceptors.request.use(onRequest, onRequestError);
+  axiosInstance.interceptors.request.use(onRequest);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
   return axiosInstance;
 }

@@ -9,7 +9,7 @@ import store from '@/store';
  * @param {*} next
  */
 const beforeEach = (to: Route, from: Route, next: NavigationGuardNext<Vue>) => {
-  const user = store.state.Auth.currentUser;
+  const user = store.getters.getCurrentUser;
   // Verifica se a rota requer autenticação
   if (to.meta.requiresAuth && !user) {
     console.log('1');

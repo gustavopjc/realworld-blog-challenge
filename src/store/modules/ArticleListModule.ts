@@ -21,6 +21,8 @@ export default class ArticleListModule extends VuexModule {
 
   currentTag = '';
 
+  serviceType = {} as BaseService;
+
   @Mutation
   setCurrentPage(page: number) {
     this.currentPage = page;
@@ -42,27 +44,63 @@ export default class ArticleListModule extends VuexModule {
   }
 
   @Mutation
+  setCurrentTag(currentTag: string) {
+    this.currentTag = currentTag;
+  }
+
+  @Mutation
   setTotalArticles(totalArticles: number) {
     this.totalArticles = totalArticles;
   }
 
+  @Mutation
+  setArticleService(service: BaseService) {
+    this.serviceType = service;
+  }
+
   @Action
-  fetchArticleList(service: BaseService) {
-    service.getAll(this.getArticleListFilters).then((response) => {
+  async fetchArticleList() {
+    await this.serviceType.getAll(this.getArticleListFilters).then((response) => {
       this.context.commit('setArticleList', response.articles);
       this.context.commit('setTotalArticles', response.articlesCount);
       this.context.commit('setTotalPages', response.articlesCount / this.perPage);
+      console.log('oi');
     });
   }
 
   @Action
-  updatePerPage(perPage: number) {
-    this.perPage = perPage;
+  setCurrentArticleService(service: BaseService) {
+    this.context.commit('setCurrentPage', 1);
+    this.context.commit('setArticleService', service);
   }
 
   @Action
-  updateCurrentPage(page: number) {
-    this.currentPage = page;
+  updateCurrentTag(tag: string) {
+    this.context.commit('setCurrentTag', tag);
+    this.context.dispatch('fetchArticleList');
+  }
+
+  @Action
+  clearCurrentTag(tag: string) {
+    this.context.commit('setCurrentTag', tag);
+  }
+
+  @Action
+  articleListSelectPage(page: number) {
+    this.context.commit('setCurrentPage', page);
+    this.context.dispatch('fetchArticleList');
+  }
+
+  @Action
+  articleListNextPage() {
+    this.context.commit('setCurrentPage', this.currentPage + 1);
+    this.context.dispatch('fetchArticleList');
+  }
+
+  @Action
+  articleListPreviousPage() {
+    this.context.commit('setCurrentPage', this.currentPage + 1);
+    this.context.dispatch('fetchArticleList');
   }
 
   @Action

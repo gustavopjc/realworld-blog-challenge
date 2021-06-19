@@ -15,15 +15,20 @@
       <p>{{ article.description }}</p>
       <span>Read more...</span>
     </a>
+    <TagList :tags="article.tagList"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import TagList from '@/components/Tag/TagList.vue';
 import { Article } from '@/models';
 
 export default defineComponent({
   name: 'article-preview-item',
+  components: {
+    TagList,
+  },
   props: {
     article: {
       type: Object as () => Article,
