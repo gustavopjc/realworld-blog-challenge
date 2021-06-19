@@ -1,12 +1,12 @@
 <template>
-  <footer>
-      <div class="container">
-        <a class="logo-font">conduit</a>
-        <span class="attribution">
-          Projeto feito por <a href="https://github.com/gustavopjc" target="_blank">Gustavo</a>.
-        </span>
-      </div>
-    </footer>
+  <footer class="position-relative">
+    <div class="container">
+      <a class="logo-font">conduit</a>
+      <span class="attribution">
+        Projeto feito por <a href="https://github.com/gustavopjc" target="_blank">Gustavo</a>.
+      </span>
+    </div>
+  </footer>
 </template>
 
 <script lang="ts">
@@ -18,5 +18,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.position-relative {
+  position: relative !important;
+}
 </style>

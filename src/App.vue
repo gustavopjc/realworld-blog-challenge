@@ -32,5 +32,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+  html, body {
+    padding: 0px !important;
+    margin: 0px !important;
+    height: 100% !important;
+  }
 </style>
