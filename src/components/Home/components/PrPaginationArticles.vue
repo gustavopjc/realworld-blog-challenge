@@ -23,14 +23,13 @@
 </template>
 
 <script lang="ts">
-import store from '@/store';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'pr-pagination-articles',
   computed: {
     pages() {
-      return store.state.ArticleListModule.totalPages;
+      return this.$store.state.ArticleListModule.totalPages;
     },
   },
   methods: {

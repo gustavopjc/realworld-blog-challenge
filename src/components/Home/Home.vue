@@ -49,7 +49,7 @@ export default defineComponent({
   },
   methods: {
     fetchPopularTags() {
-      this.tagService.getAll().then((response) => {
+      this.tagService.get().then((response) => {
         this.tags = response.tags;
       });
     },

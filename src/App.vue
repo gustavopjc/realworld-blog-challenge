@@ -7,26 +7,40 @@
         size="64"
       ></v-progress-circular>
     </v-overlay> -->
+    <Header/>
     <v-main>
-      <Header/>
-      <v-content>
-        <router-view/>
-      </v-content>
-      <FooterComponent style="fixed: bottom"/>
+      <router-view/>
     </v-main>
+    <Footer/>
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import Header from '@/components/Layout/Header.vue';
-import FooterComponent from '@/components/Layout/Footer.vue';
+import Footer from '@/components/Layout/Footer.vue';
+import UserService from '@/services/UserService';
 
 export default defineComponent({
   name: 'app',
   components: {
     Header,
-    FooterComponent,
+    Footer,
+  },
+  data() {
+    return {
+      userService: new UserService(),
+    };
+  },
+  methods: {
+    async fetchCurrentUser() {
+      await this.userService.get().then((response) => {
+        this.$store.dispatch('updateCurrentUser', response.user);
+      });
+    },
+  },
+  async created() {
+    this.fetchCurrentUser();
   },
 });
 </script>

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { setupInterceptorsTo } from '@/interceptors/AxiosInterceptor';
 
 
@@ -10,19 +10,36 @@ export default class BaseService {
     setupInterceptorsTo(axios);
   }
 
-  getOne(id:number, filters = {}) {
-    return axios.get(`${this.path}/${id}`).then((response) => response.data);
+  getOne(identifier:any) {
+    return axios.get(`${this.path}/${identifier}`).then((response) => response.data);
   }
 
-  getAll(filters = {}) {
+  get(filters = {}) {
     return axios.get(`${this.path}`, {
       params: filters,
     }).then((response) => response.data);
   }
 
-  post(subPath = '', data: any) {
+  post(data= {}, subPath = '') {
     const fullPath = (subPath) ? `${this.path}/${subPath}` : this.path;
     const promise = axios.post(fullPath, data);
+    return promise.then((response) => response.data);
+  }
+
+  delete(data= {}, subPath = '') {
+    const fullPath = (subPath) ? `${this.path}/${subPath}` : this.path;
+    const promise = axios.delete(fullPath, data);
+    return promise.then((response) => response.data);
+  }
+
+  save(data: any, subPath = '') {
+    const fullPath = (subPath) ? `${this.path}/${subPath}` : this.path;
+    let promise: Promise<AxiosResponse<any>>;
+    if (data.id) {
+      promise = axios.put(fullPath, data);
+    } else {
+      promise = axios.post(fullPath, data);
+    }
     return promise.then((response) => response.data);
   }
 }

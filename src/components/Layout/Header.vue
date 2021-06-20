@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="index.html">conduit</a>
+      <router-link class="navbar-brand" v-bind:to="{ path: '/' }">conduit</router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <header-nav-items>
         </header-nav-items>
@@ -16,7 +16,7 @@ import HeaderNavItems from '@/components/Layout/components/HeaderNavItems.vue';
 
 export default defineComponent({
   components: { HeaderNavItems },
-  name: 'header',
+  name: 'header-component',
 });
 </script>
 

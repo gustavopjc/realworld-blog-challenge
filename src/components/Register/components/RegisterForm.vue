@@ -16,9 +16,9 @@
         @click:append="showPassword = !showPassword"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>
     </fieldset>
-    <button @click="register()" class="btn btn-lg btn-primary pull-xs-right">
+    <v-btn large class="pull-xs-right" color="#5cb85c" dark @click="register()">
       Registrar
-    </button>
+    </v-btn>
   </v-form>
 </template>
 
@@ -33,7 +33,6 @@ export default defineComponent({
       credentials: {} as Credentials,
       requiredRule: [(v : string) => !!v || 'Este campo é obrigatório.'],
       emailRule: [(v : string) => (this.validateEmail(v)) || 'O e-mail informado é inválido.'],
-      passwordRule: [(v : string) => (v && v.length >= 8) || 'A senha deve conter o mínimo de 8 dígitos.'],
       showPassword: false,
     };
   },

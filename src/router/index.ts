@@ -7,6 +7,7 @@ import Register from '@/components/Register/Register.vue';
 import HomeGlobal from '@/components/Home/HomeGlobal/HomeGlobal.vue';
 import HomeTag from '@/components/Home/HomeTag/HomeTag.vue';
 import Settings from '@/components/Settings/Settings.vue';
+import Article from '@/components/Article/Article.vue';
 
 Vue.use(VueRouter);
 
@@ -33,7 +34,6 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: '',
-        name: 'home-global',
         component: HomeGlobal,
       },
       // {
@@ -48,6 +48,12 @@ const routes: Array<RouteConfig> = [
         props: true,
       },
     ],
+  },
+  {
+    path: '/article/:articleSlug',
+    name: 'article',
+    component: Article,
+    props: true,
   },
 ];
 

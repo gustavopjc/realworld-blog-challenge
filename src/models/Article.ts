@@ -10,6 +10,6 @@ export interface Article {
   createdAt: Date,
   updatedAt: Date,
   favorited: boolean,
-  favoritesCount: BigInteger,
+  favoritesCount: number,
   author: Author,
 }

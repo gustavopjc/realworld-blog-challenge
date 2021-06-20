@@ -23,14 +23,13 @@
 </template>
 
 <script lang="ts">
-import store from '@/store';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'nav-home-items',
   computed: {
     isAuth() {
-      return store.getters.isAuth;
+      return this.$store.getters.isAuth;
     },
   },
   methods: {

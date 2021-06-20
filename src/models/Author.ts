@@ -1,6 +1,6 @@
 export interface Author {
-  username: String,
-  bio: String,
+  username: string,
+  bio: string,
   image: URL,
   following: boolean,
 };

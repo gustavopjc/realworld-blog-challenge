@@ -61,7 +61,7 @@ export default class ArticleListModule extends VuexModule {
   @Action
   async fetchArticleList() {
     window.scrollTo(0, 0);
-    await this.serviceType.getAll(this.getArticleListFilters).then((response) => {
+    await this.serviceType.get(this.getArticleListFilters).then((response) => {
       this.context.commit('setArticleList', response.articles);
       this.context.commit('setTotalArticles', response.articlesCount);
       this.context.commit('setTotalPages', response.articlesCount / this.perPage);

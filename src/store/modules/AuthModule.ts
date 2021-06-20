@@ -5,25 +5,24 @@ import {
   Action,
 } from 'vuex-module-decorators';
 import { User, Credentials } from '@/models';
-import BaseService from '@/services/BaseService';
+import AuthService from '@/services/AuthService';
 import router from '@/router';
-import { AuthState } from '@/models/types/AuthStateTypes';
 
 @Module
 export default class AuthModule extends VuexModule {
   currentUser = {};
 
   @Mutation
-  updateCurrentUser(user: User) {
+  setCurrentUser(user: User) {
     this.currentUser = user;
   }
 
   @Action
   register(credentials: Credentials) {
     return new Promise(() => {
-      new BaseService('users').post('', { user: credentials })
+      new AuthService().post({ user: credentials }, '')
         .then((response) => {
-          this.context.commit('updateCurrentUser', response.user);
+          this.context.commit('setCurrentUser', response.user);
           router.push({ name: 'login' });
         })
         .catch(({ response }) => {
@@ -35,13 +34,18 @@ export default class AuthModule extends VuexModule {
   @Action
   login(credentials: Credentials) {
     return new Promise(() => {
-      new BaseService('users').post('login', { user: credentials })
+      new AuthService().post({ user: credentials }, 'login')
         .then((response) => {
-          this.context.commit('updateCurrentUser', response.user);
+          this.context.commit('setCurrentUser', response.user);
           router.push({ name: 'home-global' });
         })
         .catch(() => Promise.resolve);
     });
+  }
+
+  @Action
+  updateCurrentUser(user: User) {
+    this.context.commit('setCurrentUser', user);
   }
 
   get isAuth() {
