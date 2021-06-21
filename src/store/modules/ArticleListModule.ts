@@ -60,11 +60,11 @@ export default class ArticleListModule extends VuexModule {
 
   @Action
   async fetchArticleList() {
-    window.scrollTo(0, 0);
     await this.serviceType.get(this.getArticleListFilters).then((response) => {
       this.context.commit('setArticleList', response.articles);
       this.context.commit('setTotalArticles', response.articlesCount);
       this.context.commit('setTotalPages', response.articlesCount / this.perPage);
+      window.scrollTo(0, 0);
     });
   }
 
@@ -121,8 +121,16 @@ export default class ArticleListModule extends VuexModule {
     return this.currentPage ? this.currentPage : null;
   }
 
+  get getTotalPages() {
+    return this.totalPages ? this.totalPages : null;
+  }
+
   get getCurrentPerPage() {
     return this.perPage;
+  }
+
+  get getArticleList() {
+    return this.articleList;
   }
 
   get getArticleListFilters() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article-preview-item :article="article" v-for="article in articles" :key="article.id">
+    <article-preview-item :article="article" v-for="article in articleList" :key="article.id">
     </article-preview-item>
   </div>
 </template>
@@ -14,14 +14,9 @@ import ArticlePreviewItem from '../components/ArticlePreviewItem.vue';
 export default defineComponent({
   components: { ArticlePreviewItem },
   name: 'home-global',
-  data() {
-    return {
-      globalArticlesService: new GlobalArticlesService(),
-    };
-  },
   computed: {
-    articles() {
-      return store.state.ArticleListModule.articleList;
+    articleList() {
+      return this.$store.getters.getArticleList;
     },
   },
   methods: {

@@ -33,14 +33,15 @@ const routes: Array<RouteConfig> = [
     component: Home,
     children: [
       {
+        name: 'home-global',
         path: '',
         component: HomeGlobal,
       },
-      // {
-      //   path: 'my-feedd',
-      //   name: 'my-feed-home',
-      //   component: HomeGlobal,
-      // },
+      {
+        path: 'my-feed',
+        name: 'my-feed-home',
+        component: HomeGlobal,
+      },
       {
         path: 'tag/:tag',
         name: 'tag-home',

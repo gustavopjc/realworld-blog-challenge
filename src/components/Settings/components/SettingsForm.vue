@@ -41,7 +41,6 @@ export default defineComponent({
       userData: this.$store.getters.getCurrentUser,
       requiredRule: [(v : string) => !!v || 'Este campo é obrigatório.'],
       emailRule: [(v : string) => (this.validateEmail(v)) || 'O e-mail informado é inválido.'],
-      passwordRule: [(v : string) => (v.length > 0 && v.length >= 8) || 'A senha deve conter o mínimo de 8 dígitos.'],
       showPassword: false,
       userService: new UserService(),
     };

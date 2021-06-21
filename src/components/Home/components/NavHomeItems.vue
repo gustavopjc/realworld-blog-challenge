@@ -15,7 +15,7 @@
       </li>
       <li class="nav-item" v-if="$route.name === 'tag-home'">
         <a class="nav-link" :class="{ 'active': $route.name === 'tag-home'}" href="">
-          #teste
+          #{{ currentTag }}
         </a>
       </li>
     </ul>
@@ -30,6 +30,9 @@ export default defineComponent({
   computed: {
     isAuth() {
       return this.$store.getters.isAuth;
+    },
+    currentTag() {
+      return this.$store.getters.getCurrentTag;
     },
   },
   methods: {

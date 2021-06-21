@@ -63,7 +63,10 @@ export default defineComponent({
       return this.$store.getters.isArticleSelected;
     },
   },
-  async created() {
+  beforeDestroy() {
+    this.$store.dispatch('clearCurrentArticleSelected');
+  },
+  async beforeMount() {
     await this.fetchArticle();
   },
 });

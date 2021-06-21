@@ -21,7 +21,6 @@ export default defineComponent({
   },
   methods: {
     async updateCurrentArticleTag(tag: string) {
-      this.$store.dispatch('updateCurrentTag', tag);
       this.$router.push({ name: 'tag-home', params: { tag } });
     },
   },

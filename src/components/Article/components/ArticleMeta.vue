@@ -3,7 +3,7 @@
     <a><img :src="articleSelected.author.image" /></a>
     <div class="info-autor">
       <a class="author">{{ articleSelected.author.username }}</a>
-      <span class="date">{{ articleSelected.createdAt }}</span>
+      <span class="date">{{ articleSelected.createdAt | dateFilter }}</span>
     </div>
     <button v-if="articleSelected.author.following" class="btn btn-sm btn-outline-secondary"
       @click="unfollowAuthor()">

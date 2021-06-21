@@ -11,7 +11,7 @@
     </fieldset>
     <fieldset class="form-group">
       <v-text-field  v-model="credentials.password" outlined label="Password"
-        :rules="[...requiredRule, ...passwordRule]"
+        :rules="requiredRule"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"></v-text-field>

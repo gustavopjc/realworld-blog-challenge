@@ -16,7 +16,7 @@
 
           <router-view @enable-loading-overlay="enableLoadingOverlay()"></router-view>
 
-          <PrPaginationArticles/>
+          <PrPaginationArticles v-if="articleList.length > 0"/>
         </div>
 
         <div class="col-md-3">
@@ -46,6 +46,11 @@ export default defineComponent({
       tagService: new TagService(),
       tags: [],
     };
+  },
+  computed: {
+    articleList() {
+      return this.$store.getters.getArticleList;
+    },
   },
   methods: {
     fetchPopularTags() {

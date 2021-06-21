@@ -32,11 +32,18 @@ export default defineComponent({
       userService: new UserService(),
     };
   },
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
   methods: {
     async fetchCurrentUser() {
-      await this.userService.get().then((response) => {
-        this.$store.dispatch('updateCurrentUser', response.user);
-      });
+      if (this.isAuth) {
+        await this.userService.get().then((response) => {
+          this.$store.dispatch('updateCurrentUser', response.user);
+        });
+      }
     },
   },
   async created() {

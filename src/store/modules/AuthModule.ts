@@ -24,9 +24,6 @@ export default class AuthModule extends VuexModule {
         .then((response) => {
           this.context.commit('setCurrentUser', response.user);
           router.push({ name: 'login' });
-        })
-        .catch(({ response }) => {
-          console.log(response);
         });
     });
   }
@@ -41,6 +38,12 @@ export default class AuthModule extends VuexModule {
         })
         .catch(() => Promise.resolve);
     });
+  }
+
+  @Action
+  logout() {
+    this.context.commit('setCurrentUser', {});
+    router.push({ name: 'home-global' });
   }
 
   @Action

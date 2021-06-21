@@ -7,8 +7,9 @@
           <span class="sr-only" @click="previousPage()">Previous</span>
         </a>
       </li>
-      <li class="page-item" v-for="page in pages" :key="page">
-        <a class="page-link" @click="selectPage(page)">
+      <li class="page-item"  v-for="page in totalPages" :key="page">
+        <a class="page-link" :class="{ 'active-page': currentPage === page }"
+          @click="selectPage(page)">
           {{ page }}
         </a>
       </li>
@@ -28,8 +29,11 @@ import { defineComponent } from '@vue/composition-api';
 export default defineComponent({
   name: 'pr-pagination-articles',
   computed: {
-    pages() {
-      return this.$store.state.ArticleListModule.totalPages;
+    totalPages() {
+      return this.$store.getters.getTotalPages;
+    },
+    currentPage() {
+      return this.$store.getters.getCurrentPage;
     },
   },
   methods: {
@@ -72,5 +76,10 @@ export default defineComponent({
     background-color:#D6D6D6;
     color: #6D6D6D;
     border-bottom:3px solid #EA0000;
+}
+
+.active-page {
+  background-color: #d3d1d1;
+  border-color: #d3d1d1;
 }
 </style>

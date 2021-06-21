@@ -38,6 +38,11 @@ export default class ArticleModule extends VuexModule {
   }
 
   @Action
+  clearCurrentArticleSelected() {
+    this.context.commit('setCurrentArticleSelected', {});
+  }
+
+  @Action
   favoriteArticle() {
     new ArticleService().favoriteArticle(this.articleSelected.slug);
     this.context.commit('setFavoritedArticle', true);
